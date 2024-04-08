@@ -46,6 +46,14 @@
             @if (!$headerless)
                 <thead @class(['uppercase', $personalize['table.thead.normal'] => !$striped, $personalize['table.thead.striped'] => $striped])>
                     <tr>
+                        @if ($selectable)
+                            <th scope="col" @class(['w-6', $personalize['table.th']])>
+                                <x-dynamic-component :component="TallStackUi::component('checkbox')"
+                                                     wire:model.live="selected"
+                                                     value="{{ $rows->toJson() }}"
+                                                     sm />
+                            </th>
+                        @endif
                         @foreach ($headers as $header)
                             <th scope="col" @class($personalize['table.th'])>
                                 <a @if ($livewire && $sortable($header))
@@ -77,6 +85,14 @@
                         @php($this->loop = $loop)
                     @endif
                     <tr @class(['bg-gray-50 dark:bg-dark-800/50' => $striped && $loop->index % 2 === 0]) @if ($livewire) wire:key="{{ md5(serialize($value).$key) }}" @endif>
+                        @if ($selectable)
+                            <td @class($personalize['table.td'])>
+                                <x-dynamic-component :component="TallStackUi::component('checkbox')"
+                                                        value="{{ $value->toJson() }}"
+                                                        wire:model.live="selected"
+                                                        sm />
+                            </td>
+                        @endif
                         @foreach($headers as $header)
                             @php($row = str_replace('.', '_', $header['index']))
                             @isset(${"column_".$row})

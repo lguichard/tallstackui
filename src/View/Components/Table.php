@@ -30,6 +30,7 @@ class Table extends BaseComponent implements Personalization
         public ?array $placeholders = [],
         public ?bool $paginate = false,
         public ?bool $persistent = false,
+        public ?bool $selectable = false,
         #[SkipDebug]
         public ?string $paginator = 'tallstack-ui::components.table.paginators',
         public ?bool $simplePagination = false,
